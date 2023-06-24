@@ -51,36 +51,36 @@ jobs:
         with:
           command: openProject(pwd); WebsiteRanking_runtests;
 
-    job-run-tests-22b:
-        runs-on: ubuntu-latest
-        steps:
-    
-          - name: Check out repository
-            uses: actions/checkout@v3
-    
-          - name: Setup MATLAB
-            uses: matlab-actions/setup-matlab@v1
-            with:
-              release: R2022b
-    
-          - name: Run tests in R2022b
-            uses: matlab-actions/run-command@v1
-            with:
-              command: openProject(pwd); WebsiteRanking_runtests;
+  job-run-tests-22b:
+    runs-on: ubuntu-latest
+    steps:
 
-    job-run-tests-22a:
-        runs-on: ubuntu-latest
-        steps:
-    
-          - name: Check out repository
-            uses: actions/checkout@v3
-    
-          - name: Setup MATLAB
-            uses: matlab-actions/setup-matlab@v1
-            with:
-              release: R2022a
-    
-          - name: Run tests in R2022a
-            uses: matlab-actions/run-command@v1
-            with:
-              command: openProject(pwd); WebsiteRanking_runtests;
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup MATLAB
+        uses: matlab-actions/setup-matlab@v1
+        with:
+          release: R2022b
+
+      - name: Run tests in R2022b
+        uses: matlab-actions/run-command@v1
+        with:
+          command: openProject(pwd); WebsiteRanking_runtests;
+
+  job-run-tests-22a:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup MATLAB
+        uses: matlab-actions/setup-matlab@v1
+        with:
+          release: R2022a
+
+      - name: Run tests in R2022a
+        uses: matlab-actions/run-command@v1
+        with:
+          command: openProject(pwd); WebsiteRanking_runtests;
