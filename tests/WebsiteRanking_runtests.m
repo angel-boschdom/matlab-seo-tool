@@ -21,7 +21,7 @@ runner = matlab.unittest.TestRunner.withTextOutput( ...
 %% JUnit style test result
 
 plugin = matlab.unittest.plugins.XMLPlugin.producingJUnitFormat( ...
-          fullfile(prjroot, "test", "TestResults_"+relstr+".xml"));
+          fullfile(prjroot, "tests", "TestResults_"+relstr+".xml"));
 
 addPlugin(runner, plugin)
 

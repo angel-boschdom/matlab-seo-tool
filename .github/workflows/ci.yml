@@ -1,0 +1,86 @@
+# GitHub Actions Workflow with MATLAB Actions
+#
+# For a general overview of GitHub Actions, see
+# https://docs.github.com/en/actions
+#
+# For using MathWorks products in GitHub Actions, see
+# https://github.com/matlab-actions/overview
+#
+# For details about the syntax of this file, see
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: CI using MATLAB
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '**.png'
+      - '**.svg'
+      - '**.txt'
+      - '**.xml'
+
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '**.png'
+      - '**.svg'
+      - '**.txt'
+      - '**.xml'
+
+jobs:
+
+  job-run-tests-23a:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup MATLAB
+        uses: matlab-actions/setup-matlab@v1
+        with:
+          release: R2023a
+
+      - name: Run tests in R2023a
+        uses: matlab-actions/run-command@v1
+        with:
+          command: openProject(pwd); WebsiteRanking_runtests;
+
+    job-run-tests-22b:
+        runs-on: ubuntu-latest
+        steps:
+    
+          - name: Check out repository
+            uses: actions/checkout@v3
+    
+          - name: Setup MATLAB
+            uses: matlab-actions/setup-matlab@v1
+            with:
+              release: R2022b
+    
+          - name: Run tests in R2022b
+            uses: matlab-actions/run-command@v1
+            with:
+              command: openProject(pwd); WebsiteRanking_runtests;
+
+    job-run-tests-22a:
+        runs-on: ubuntu-latest
+        steps:
+    
+          - name: Check out repository
+            uses: actions/checkout@v3
+    
+          - name: Setup MATLAB
+            uses: matlab-actions/setup-matlab@v1
+            with:
+              release: R2022a
+    
+          - name: Run tests in R2022a
+            uses: matlab-actions/run-command@v1
+            with:
+              command: openProject(pwd); WebsiteRanking_runtests;
