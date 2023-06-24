@@ -1,6 +1,6 @@
-# **Website Ranking with MATLAB**
+# **Website Ranking with MATLAB®**
 
-Use the power of MATLAB to automate website ranking analysis for different search engines.
+Use the power of MATLAB® to automate website ranking analysis for different search engines.
 
 ## Examples
 
