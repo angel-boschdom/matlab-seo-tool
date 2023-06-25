@@ -6,7 +6,7 @@ Automate [search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search
 
 ![](/media/GoogleTop10ExampleTable.PNG)
 
-This repository provides a solution for automating website ranking and analysis using [MATLAB®](https://www.mathworks.com/products/matlab.html). 
+This repository provides a solution for automating website ranking and keyword analysis using [MATLAB®](https://www.mathworks.com/products/matlab.html). 
 By leveraging MATLAB's command-line interfaces with popular search engines, you can effortlessly:
 1. Retrieve information about your ranking in search results.
 2. Compute the SEO score of your webpage with well-known methods.
