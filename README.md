@@ -1,23 +1,24 @@
 # **Website Ranking with MATLAB®**
 
-Use the power of MATLAB® to automate website ranking analysis for different search engines.
+Use the power of MATLAB® to automate website ranking and analysis, using internet search engines.
 
 ## Examples
 
 ### Is your website in the top 10 Google search results?
 
 Use your Google Programmable Search Engine API key to check the top search results for a keyword.
+This can help you understand if your website has a good Search Engine Optimization (SEO).
 
 ```matlab
 googleEngine = googleapi.SearchEngine(); % class included in this repository
-keyword = "pmsm modeling"; % search keyword
+keyword = "pmsm modeling"; % search word
 
-websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10); % function included in this repository
+websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10);
 
 disp(websites)
 ```
 
-The example code above produces the following output:
+Command Window output:
 
 ```matlab
 "https://www.mathworks.com/help/sps/ref/pmsm.html"
