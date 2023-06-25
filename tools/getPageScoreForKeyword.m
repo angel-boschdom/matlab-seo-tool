@@ -5,17 +5,18 @@ function score = getPageScoreForKeyword(url, keyword, options)
     arguments (Input)
         url             (1,1) string % page URL
         keyword         (1,1) string % search word
-        options.method  (1,1) string = "Keyword Density" % Scoring method
+        options.method  (1,1) string = "KeywordDensity" % Scoring method
+        options.engine  (1,1) InternetSearchEngine = googleapi.SearchEngine();
     end
     arguments (Output)
         score           (1,1) double % page score
     end
 
     switch options.method
-        case "Keyword Density"
+        case "KeywordDensity"
             score = getKeywordDensityScore(url, keyword);
-        case "Backlinks From Top 10"
-            score = getBacklinksTop10Score(url, keyword);
+        case "BacklinksFromTop10"
+            score = getBacklinksTop10Score(url, keyword, options.engine);
         otherwise
             errID = "getPageScoreForKeyword:invalidMethod";
             msg = strcat(options.method, " is not a valid option. Specify a supported method.");
@@ -26,7 +27,7 @@ function score = getPageScoreForKeyword(url, keyword, options)
 end
 
 function score = getKeywordDensityScore(url, keyword)
-    % Implementation of the Keyword Density scoring method
+    % Implementation of the KeywordDensity scoring method
 
     html = getHTML(url);
 
@@ -45,11 +46,10 @@ function score = getKeywordDensityScore(url, keyword)
 
 end
 
-function score = getBacklinksTop10Score(url, keyword)
-    % Implementation of the Backlinks From Top 10 scoring method
+function score = getBacklinksTop10Score(url, keyword, engine)
+    % Implementation of the BacklinksFromTop10 scoring method
 
-    % 1) Find top 10 pages in a google search for keyword
-    engine = googleapi.SearchEngine();
+    % 1) Find top 10 pages in a browser search for keyword
     top10 = getTopSitesInBrowserSearch(keyword, engine, maxSites=10);
 
     % 2) Count the number of times the url is linked in those top 10 pages.

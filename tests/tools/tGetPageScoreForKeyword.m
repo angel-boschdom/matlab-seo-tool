@@ -5,7 +5,7 @@ classdef tGetPageScoreForKeyword < matlab.unittest.TestCase
         funcUnderTest = @getPageScoreForKeyword
     end
     properties(TestParameter)
-        method = {"Keyword Density"} 
+        method = {"KeywordDensity"} 
         page = {"https://www.mathworks.com/help/matlab/"}
         keyword = {"matlab", "potato"}
     end

@@ -18,11 +18,20 @@ To evaluate the effectiveness of your website's Search Engine Optimization (SEO)
 googleEngine = googleapi.SearchEngine(); % class included in this repository
 keyword = "matlab online"; % search word
 
-websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10);
-
-disp(websites)
+websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10)
 ```
 The above example demonstrates how to retrieve the top 10 search results from Google for the keyword "matlab online". By executing the code, you will obtain a list of websites that rank in the top search results. This information can provide valuable insights into your website's visibility and SEO performance.
+
+### Compute the SEO score of your website
+
+Use the functions included in this repository to compute the SEO score for a website with respect to a keyword, using a variety of scoring methods.
+
+```matlab
+website = "https://www.mathworks.com/";
+keyword = "artificial intelligence";
+score1 = getPageScoreForKeyword(website, keyword, method="KeywordDensity")
+score2 = getPageScoreForKeyword(website, keyword, method="BacklinksFromTop10")
+```
 
 Feel free to explore the repository and adapt the code to suit your specific needs.
 
@@ -30,7 +39,7 @@ Feel free to explore the repository and adapt the code to suit your specific nee
 
 To run the code in this repository, you need the following:
 
- - [MATLAB®](https://www.mathworks.com/products/matlab.html) release R2022a or newer.
+ - [MATLAB®](https://www.mathworks.com/products/matlab.html) release R2022b or newer.
  - Google Programmable Search Engine API key
 
 ## Setup 
