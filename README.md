@@ -9,10 +9,13 @@ Use the power of MATLAB® to automate website ranking analysis for different sea
 Use your Google Programmable Search Engine API key to check the top search results for a keyword.
 
 ```matlab
-googleEngine = googleapi.SearchEngine();
-keyword = "pmsm modeling";
-websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10)
+googleEngine = googleapi.SearchEngine(); % class included in this repository
+keyword = "pmsm modeling"; % search keyword
+
+websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10); % function included in this repository
+
 disp(websites)
+```
 
 The example code above produces the following output:
 
@@ -27,4 +30,4 @@ The example code above produces the following output:
 "https://ipsj.ixsq.nii.ac.jp/ej/?action=repository_uri&item_id=210331&file_id=1&file_no=1"
 "http://www.irphouse.com/ijee/ijeev7n3_05.pdf"
 "https://stemgateway.nasa.gov/public/s/course-offering/a0Bt0000004lCKHEA2/permanent-magnet-synchronous-motor-pmsm-modeling-and-pmsm-controls-modeling"
-
+```
