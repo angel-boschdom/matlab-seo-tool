@@ -6,7 +6,7 @@ function score = getPageScoreForKeyword(url, keyword, options)
         url             (1,1) string % page URL
         keyword         (1,1) string % search word
         options.method  (1,1) string = "KeywordDensity" % Scoring method
-        options.engine  (1,1) InternetSearchEngine = googleapi.SearchEngine();
+        options.engine  (1,1) InternetSearchEngine;
     end
     arguments (Output)
         score           (1,1) double % page score
@@ -16,7 +16,12 @@ function score = getPageScoreForKeyword(url, keyword, options)
         case "KeywordDensity"
             score = getKeywordDensityScore(url, keyword);
         case "BacklinksFromTop10"
-            score = getBacklinksTop10Score(url, keyword, options.engine);
+            if isfield(options, "engine")
+                engine = options.engine;
+            else
+                engine = googleapi.SearchEngine(); % default engine
+            end
+            score = getBacklinksTop10Score(url, keyword, engine);
         otherwise
             errID = "getPageScoreForKeyword:invalidMethod";
             msg = strcat(options.method, " is not a valid option. Specify a supported method.");
