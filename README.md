@@ -1,18 +1,22 @@
-# **Website Ranking with MATLAB®**
+# **MATLAB SEO Tool: Boost Keyword Research, Website Ranking, and Competitor Analysis**
 
-Automate website ranking and analysis using MATLAB® command-line interfaces for internet search engines.
+Automate [search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search_engine_optimization) tasks with [MATLAB®](https://www.mathworks.com/products/matlab.html) to enhance your website's visibility and drive organic traffic.
 
 ## Improve your Website Ranking with MATLAB®
 
-This repository provides a solution for automating website ranking and analysis using MATLAB®. By leveraging command-line interfaces of popular internet search engines, you can easily retrieve information about the ranking of your website in search results.
-
 ![](/media/GoogleTop10ExampleTable.PNG)
+
+This repository provides a solution for automating website ranking and analysis using MATLAB®. 
+By leveraging MATLAB's command-line interfaces with popular search engines, you can effortlessly:
+1. Retrieve information about your ranking in search results.
+2. Compute the SEO score of your webpage with well-known methods.
+3. Research your competitor's keywords with website crawling.
 
 ## Examples
 
 ### Check if your website is in the top 10 Google search results
 
-To evaluate the effectiveness of your website's Search Engine Optimization (SEO), you can use your Google Programmable Search Engine API key to check if your website appears in the top search results for a specific keyword.
+Evaluate the effectiveness of your website's SEO by using the [Google Programmable Search Engine](https://programmablesearchengine.google.com/about/) API key to check if your website appears in the top search results for a specific keyword.
 
 ```matlab
 googleEngine = googleapi.SearchEngine(); % class included in this repository
@@ -40,12 +44,12 @@ Feel free to explore the repository and adapt the code to suit your specific nee
 To run the code in this repository, you need the following:
 
  - [MATLAB®](https://www.mathworks.com/products/matlab.html) release R2022b or newer.
- - Google Programmable Search Engine API key
+ - [Google Programmable Search Engine](https://developers.google.com/custom-search) API key
 
 ## Setup 
 
-1. Download the content of this repository into a MATLAB path. 
-2. Launch MATLAB
+1. Download the content of this repository.
+2. Launch MATLAB from your desktop or [MATLAB Online](https://www.mathworks.com/products/matlab-online.html) from your browser.
 3. Before using, set an environment variable with your Google Custom Search Engine ID and API key.
 
 ```matlab
