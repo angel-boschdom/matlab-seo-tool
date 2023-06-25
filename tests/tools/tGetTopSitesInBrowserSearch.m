@@ -1,7 +1,6 @@
 classdef tGetTopSitesInBrowserSearch < matlab.unittest.TestCase
-    % Unit tests for getTopSitesInGoogleSearch
-    
-    
+    % Unit tests for getTopSitesInBrowserSearch
+      
     properties
         funcUnderTest = @getTopSitesInBrowserSearch
     end
