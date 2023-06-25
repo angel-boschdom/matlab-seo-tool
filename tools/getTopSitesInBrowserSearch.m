@@ -16,7 +16,7 @@ function topSites = getTopSitesInBrowserSearch(searchString, engine, options)
     cutoffNum = int32(floor(options.maxSites));
     numTopSites = min(numItems,cutoffNum);
     for idxSite = numTopSites:-1:1
-        topSites(idxSite,1) = string(items(idxSite).link);
+        topSites(idxSite,1) = string(items{idxSite}.link);
     end
 
 end
@@ -53,14 +53,14 @@ function isValid = isEngineSearchOutputValid(data)
         return
     end
     items = data.items;
-    itemsIsAStruct = isstruct(items);
-    if ~itemsIsAStruct
+    itemsIsACell = iscell(items);
+    if ~itemsIsACell
         isValid = false;
         return
     end
     allItemsAreValid = true;
     for idxItem = numel(items):-1:1
-        thisItem = items(idxItem);
+        thisItem = items{idxItem};
         hasLinkField = isfield(thisItem, "link");
         if ~hasLinkField
             allItemsAreValid = false;

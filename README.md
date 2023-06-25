@@ -6,6 +6,8 @@ Automate website ranking and analysis using MATLAB® command-line interfaces for
 
 This repository provides a solution for automating website ranking and analysis using MATLAB®. By leveraging command-line interfaces of popular internet search engines, you can easily retrieve information about the ranking of your website in search results.
 
+![](/media/GoogleTop10ExampleTable.PNG)
+
 ## Examples
 
 ### Check if your website is in the top 10 Google search results
@@ -33,9 +35,16 @@ To run the code in this repository, you need the following:
 
 ## Setup 
 
-- Download the files or clone the repository to your local machine.
-- Open the project file *WebsiteRanking.prj* to setup the project.
-- Open and read the *examples/GoogleTop10.mlx* Live Script for a short demo.
+1. Download the content of this repository into a MATLAB path. 
+2. Launch MATLAB
+3. Before using, set an environment variable with your Google Custom Search Engine ID and API key.
+
+```matlab
+setenv("GOOGLE_SEARCH_ENGINE_ID", "your-search-engine-id-here");
+setenv("GOOGLE_SEARCH_ENGINE_API_KEY", "your-api-key-here");
+```
+4. Open the project file *WebsiteRanking.prj* to setup the project.
+5. Open the *examples/GoogleTop10.mlx* Live Script for a short demo.
 
 ## Contributing
 

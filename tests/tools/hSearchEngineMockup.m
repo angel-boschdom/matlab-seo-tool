@@ -29,6 +29,15 @@ classdef hSearchEngineMockup < InternetSearchEngine
             end
             
             data = obj.DummyData;
+
+            if isstruct(data.items)
+                % convert items to cell array
+                items = data.items;
+                for idxItem = numel(items):-1:1
+                    cellItems{idxItem,1} = data.items(idxItem);
+                end
+                data.items = cellItems;
+            end
         end
     end
 end

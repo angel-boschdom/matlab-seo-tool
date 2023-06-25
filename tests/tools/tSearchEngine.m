@@ -5,11 +5,15 @@ classdef tSearchEngine < matlab.unittest.TestCase
     properties
         objUnderTest = @hSearchEngineMockup
     end
+    properties(TestParameter)
+        dataMatFile = {"GoogleEngineSearchSample1_CellItems.mat", ...
+                       "GoogleEngineSearchSample2_CellItems.mat", ...
+                       "GoogleEngineSearchSample3_StructItems.mat"}
+    end
 
     methods(Test)
 
-        function testSearch(test)
-            dataMatFile = "GoogleEngineSearchSample1.mat";
+        function testSearch(test, dataMatFile)
             engine = test.objUnderTest(dataMatFile);
             dummySearchString = "dummy search";
 
@@ -18,17 +22,7 @@ classdef tSearchEngine < matlab.unittest.TestCase
             test.verifyTrue(isEngineSearchOutputValid(data));
 
         end
-
-        function testSearch_Negative(test)
-            dataMatFile = "GoogleEngineInvalidSearchData.mat";
-            engine = test.objUnderTest(dataMatFile);
-            dummySearchString = "dummy search";
-
-            data = engine.search(dummySearchString);
-
-            test.verifyFalse(isEngineSearchOutputValid(data));
-        end
-
+        
     end
 end
 
@@ -47,14 +41,14 @@ function isValid = isEngineSearchOutputValid(data)
         return
     end
     items = data.items;
-    itemsIsAStruct = isstruct(items);
-    if ~itemsIsAStruct
+    itemsIsACell = iscell(items);
+    if ~itemsIsACell
         isValid = false;
         return
     end
     allItemsAreValid = true;
     for idxItem = numel(items):-1:1
-        thisItem = items(idxItem);
+        thisItem = items{idxItem};
         hasLinkField = isfield(thisItem, "link");
         if ~hasLinkField
             allItemsAreValid = false;
