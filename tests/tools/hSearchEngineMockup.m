@@ -12,12 +12,12 @@ classdef hSearchEngineMockup < InternetSearchEngine
     end
     
     methods
-        function obj = hSearchEngineMockup()
+        function obj = hSearchEngineMockup(dataMatFile)
             %SEARCHENGINE Construct an instance of this class
             obj.ID = "dummyID";
             obj.APIKey = "dummyAPIKey";
 
-            loadOut = load("GoogleEngineSearchSample.mat");
+            loadOut = load(dataMatFile);
             obj.DummyData = loadOut.data;
         end
         

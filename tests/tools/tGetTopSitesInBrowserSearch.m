@@ -11,7 +11,8 @@ classdef tGetTopSitesInBrowserSearch < matlab.unittest.TestCase
     methods(Test)
 
         function testOutput(test)
-            engine = hSearchEngineMockup();
+            dataMatFile = "GoogleEngineSearchSample1.mat";
+            engine = hSearchEngineMockup(dataMatFile);
             dummySearchString = "dummy search";
             websiteList = test.funcUnderTest(dummySearchString, engine);
             numSites = numel(websiteList);
@@ -21,8 +22,17 @@ classdef tGetTopSitesInBrowserSearch < matlab.unittest.TestCase
             end
         end
 
+        function testOutput_Negative(test)
+            dataMatFile = "GoogleEngineInvalidSearchData.mat";
+            engine = hSearchEngineMockup(dataMatFile);
+            dummySearchString = "dummy search";
+            test.verifyError(@() test.funcUnderTest(dummySearchString, engine), ...
+                "getTopSitesInBrowserSearch:invalidSearchEngineOutput");
+        end
+
         function testMaxSitesOption(test,maxSites)
-            engine = hSearchEngineMockup();
+            dataMatFile = "GoogleEngineSearchSample1.mat";
+            engine = hSearchEngineMockup(dataMatFile);
             dummySearchString = "dummy search";
             websiteList = test.funcUnderTest(dummySearchString, engine, 'maxSites', maxSites);
             
@@ -30,7 +40,8 @@ classdef tGetTopSitesInBrowserSearch < matlab.unittest.TestCase
         end
 
         function testMaxSitesOptionAlternativeSyntax(test,maxSites)
-            engine = hSearchEngineMockup();
+            dataMatFile = "GoogleEngineSearchSample1.mat";
+            engine = hSearchEngineMockup(dataMatFile);
             dummySearchString = "dummy search";
             websiteList = test.funcUnderTest(dummySearchString, engine, maxSites=maxSites);
             
@@ -39,10 +50,11 @@ classdef tGetTopSitesInBrowserSearch < matlab.unittest.TestCase
 
         function testMaxSitesOption_Negative(test)
             invalidMaxSites = 0.5;
-            engine = hSearchEngineMockup();
+            dataMatFile = "GoogleEngineSearchSample1.mat";
+            engine = hSearchEngineMockup(dataMatFile);
             dummySearchString = "dummy search";
             test.verifyError(@() test.funcUnderTest(dummySearchString, engine, 'maxSites', invalidMaxSites), ...
-                "searchengine:maxSitesMustExceedOne");
+                "getTopSitesInBrowserSearch:maxSitesMustExceedOne");
         end
     end
 end

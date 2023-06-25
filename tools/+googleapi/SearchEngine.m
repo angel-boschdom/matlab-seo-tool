@@ -7,17 +7,15 @@ classdef SearchEngine < InternetSearchEngine
     end
     
     methods
-        % function obj = SearchEngine(id,apiKey)
-        %     %SEARCHENGINE Construct an instance of this class
-        %     obj.ID = id;
-        %     obj.APIKey = apiKey;
-        % end
         
         function data = search(obj,searchString)
             %SEARCH Perform a search
-            arguments
+            arguments (Input)
                 obj googleapi.SearchEngine
                 searchString (1,1) string
+            end
+            arguments (Output)
+                data    (1,1) struct
             end
 
             apiKey = obj.APIKey;
@@ -28,4 +26,3 @@ classdef SearchEngine < InternetSearchEngine
         end
     end
 end
-
