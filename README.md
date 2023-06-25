@@ -6,13 +6,17 @@ Use the power of MATLAB® to automate website ranking analysis for different sea
 
 ### Is your website in the top 10 Google search results?
 
-Use your Google API key to check the top search results of a keyword of your choice
+Use your Google Programmable Search Engine API key to check the top search results for a keyword.
 
 ```matlab
 googleEngine = googleapi.SearchEngine();
 keyword = "pmsm modeling";
-websites = getTopSitesInBrowserSearch(keyword, engine, 'maxSites', 10)
+websites = getTopSitesInBrowserSearch(keyword, googleEngine, 'maxSites', 10)
 disp(websites)
+
+The example code above produces the following output:
+
+```matlab
 "https://www.mathworks.com/help/sps/ref/pmsm.html"
 "https://ieeexplore.ieee.org/document/9176"
 "https://liu.diva-portal.org/smash/get/diva2:1671362/FULLTEXT01.pdf"
