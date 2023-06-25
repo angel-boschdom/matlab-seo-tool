@@ -1,4 +1,4 @@
-classdef hSearchEngineMockup
+classdef hSearchEngineMockup < InternetSearchEngine
     %HSEARCHENGINEMOCKUP Helper class to mock a SearchEngine class. This
     %enable testing without use of API Keys.
 
