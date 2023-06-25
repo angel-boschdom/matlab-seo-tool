@@ -24,7 +24,7 @@ The above example demonstrates how to retrieve the top 10 search results from Go
 
 ### Compute the SEO score of your website
 
-Use the functions included in this repository to compute the SEO score for a website with respect to a keyword, using a variety of scoring methods.
+Use the functions included in this repository to compute your website's SEO score for a specific keyword, using a variety of scoring methods.
 
 ```matlab
 website = "https://www.mathworks.com/";
