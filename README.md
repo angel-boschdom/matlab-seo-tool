@@ -1,12 +1,12 @@
 # **MATLAB SEO Tool: Boost Keyword Research, Website Ranking, and Competitor Analysis**
 
-Automate [search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search_engine_optimization) tasks with [MATLAB®](https://www.mathworks.com/products/matlab.html) to enhance your website's visibility and drive organic traffic.
+Automate [search engine optimization (SEO)](https://en.wikipedia.org/wiki/Search_engine_optimization) tasks with MATLAB® to enhance your website's visibility and drive organic traffic.
 
 ## Improve your Website Ranking with MATLAB®
 
 ![](/media/GoogleTop10ExampleTable.PNG)
 
-This repository provides a solution for automating website ranking and analysis using MATLAB®. 
+This repository provides a solution for automating website ranking and analysis using [MATLAB®](https://www.mathworks.com/products/matlab.html). 
 By leveraging MATLAB's command-line interfaces with popular search engines, you can effortlessly:
 1. Retrieve information about your ranking in search results.
 2. Compute the SEO score of your webpage with well-known methods.
