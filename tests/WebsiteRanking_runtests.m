@@ -13,6 +13,11 @@ prjroot = currentProject().RootFolder;
 
 suite = matlab.unittest.TestSuite.fromFolder(fullfile(prjroot, "tests"), "IncludingSubfolders",true);
 
+%% Filter test suites that require an API key
+
+suiteNames = {suite.Name};
+suite(startsWith(suiteNames, "tChatGPT")) = [];
+
 %% Create test runner
 
 runner = matlab.unittest.TestRunner.withTextOutput( ...
