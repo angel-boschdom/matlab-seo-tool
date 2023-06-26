@@ -37,6 +37,13 @@ score1 = getPageScoreForKeyword(website, keyword, method="KeywordDensity")
 score2 = getPageScoreForKeyword(website, keyword, method="BacklinksFromTop10")
 ```
 
+You can use [ChatGPT](https://openai.com/chatgpt) as a scoring method. 
+The tool uses [MatGPT](https://www.mathworks.com/matlabcentral/fileexchange/126665-matgpt/) to connect MATLAB to the [OpenAI API](https://platform.openai.com/docs/api-reference) and ask ChatGPT for a SEO score.
+
+```matlab
+score3 = getPageScoreForKeyword(website, keyword, method="ChatGPT")
+```
+
 Feel free to explore the repository and adapt the code to suit your specific needs.
 
 ## Requirements
