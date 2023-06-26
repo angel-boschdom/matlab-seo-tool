@@ -1,0 +1,3 @@
+[submodule "tools/matgpt"]
+	path = tools/matgpt
+	url = https://github.com/toshiakit/MatGPT.git
