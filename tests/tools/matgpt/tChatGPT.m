@@ -14,7 +14,11 @@ classdef tChatGPT < matlab.unittest.TestCase
 
     methods(Test)
 
-        function testOutput(test, temperature, max_tokens, url)
+        function testConstructor(test)
+            test.verifyWarningFree(@() test.objUnderTest(), "A chatGPT instance could not be created.");
+        end
+
+        function testOutput_NeedsAPIKey(test, temperature, max_tokens, url)
             
             scorer = test.objUnderTest();
             scorer.temperature = temperature;

@@ -5,7 +5,7 @@ classdef tGetPageScoreForKeyword < matlab.unittest.TestCase
         funcUnderTest = @getPageScoreForKeyword
     end
     properties(TestParameter)
-        method = {"KeywordDensity"} 
+        method = {"KeywordDensity", "ChatGPT"} 
         page = {"https://www.mathworks.com/help/matlab/"}
         keyword = {"matlab", "potato"}
     end
@@ -29,9 +29,9 @@ classdef tGetPageScoreForKeyword < matlab.unittest.TestCase
             test.verifyGreaterThan(matlabScore,potatoScore);
         end
 
-        function testOutputIsNormalized(test, page, keyword)
+        function testNormalizedOption(test, page, keyword)
             engine = hSearchEngineMockup("GoogleEngineSearchSample1_CellItems.mat");
-            score = test.funcUnderTest(page,keyword,'engine',engine);
+            score = test.funcUnderTest(page,keyword,'engine',engine, 'normalize', true);
             test.verifyGreaterThanOrEqual(score,0);
             test.verifyLessThanOrEqual(score,1);
         end
@@ -46,16 +46,12 @@ classdef tGetPageScoreForKeyword < matlab.unittest.TestCase
             
         end
 
-        function testMethodOption(test,method)
-            
-            score = test.funcUnderTest(test.page{1}, test.keyword{1}, ...
-                "method", method);
+        function testKeywordDensityMethod(test)
+            verifyMatlabHasGreaterScoreThanPotatoForMethod(test, "KeywordDensity")
         end
 
-        function testMethodOptionAlternativeSyntax(test,method)
-            
-            score = test.funcUnderTest(test.page{1}, test.keyword{1}, ...
-                method=method);
+        function testChatGPTMethod_NeedsAPIKey(test)
+            verifyMatlabHasGreaterScoreThanPotatoForMethod(test, "ChatGPT")
         end
 
         function testMethodOption_Negative(test)
@@ -67,4 +63,13 @@ classdef tGetPageScoreForKeyword < matlab.unittest.TestCase
             
         end
     end
+end
+
+% Helper function
+function verifyMatlabHasGreaterScoreThanPotatoForMethod(test, methodName)
+    engine = hSearchEngineMockup("GoogleEngineSearchSample2_CellItems.mat");
+    matlabDocPage = "https://www.mathworks.com/help/matlab/";
+    matlabScore = test.funcUnderTest(matlabDocPage,"matlab",engine=engine,method=methodName);
+    potatoScore = test.funcUnderTest(matlabDocPage,"potato",engine=engine,method=methodName);
+    test.verifyGreaterThan(matlabScore,potatoScore);
 end

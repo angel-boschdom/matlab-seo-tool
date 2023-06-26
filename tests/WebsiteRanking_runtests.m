@@ -16,7 +16,7 @@ suite = matlab.unittest.TestSuite.fromFolder(fullfile(prjroot, "tests"), "Includ
 %% Filter test suites that require an API key
 
 suiteNames = {suite.Name};
-suite(startsWith(suiteNames, "tChatGPT")) = [];
+suite(contains(suiteNames, "NeedsAPIKey")) = [];
 
 %% Create test runner
 
