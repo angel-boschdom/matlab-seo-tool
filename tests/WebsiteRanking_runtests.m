@@ -18,6 +18,11 @@ suite = matlab.unittest.TestSuite.fromFolder(fullfile(prjroot, "tests"), "Includ
 suiteNames = {suite.Name};
 suite(contains(suiteNames, "NeedsAPIKey")) = [];
 
+%% Filter submodules tests
+
+suiteNames = {suite.Name};
+suite(startsWith(suiteNames, "tChatGPT")) = []; % filter chatGPT test as submodules error at test in GitHub Actions
+
 %% Create test runner
 
 runner = matlab.unittest.TestRunner.withTextOutput( ...
