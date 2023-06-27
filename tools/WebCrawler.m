@@ -4,8 +4,10 @@ classdef WebCrawler < handle
     
     properties
         maxLinks (1,1) int32 = int32(100) % maximum numbers of explored links
+        filter (1,1) function_handle = @(str) true; % filter links to explore
     end
     properties(SetAccess=private)
+        RootURL (1,1) string
         VisitedURLs (:,1) string = "" % list of visited URLs
         Graph (1,1) digraph = digraph() % graph of visited URLs. An edge A->B means A has a link pointing to B.
         LinkCount (1,1) int32 = int32(1) % Number of visited links
@@ -18,12 +20,14 @@ classdef WebCrawler < handle
             parentID = obj.LinkCount;
             
             if strcmp(obj.VisitedURLs,"")
+                obj.RootURL = url;
                 obj.VisitedURLs = url;
                 obj.Graph = obj.Graph.addnode(node);
             end
             
             try
                 links = findLinks(url);  
+                links = links(arrayfun(obj.filter, links));
             catch exc
                 obj.Diagnostics(end+1) = strcat("Error finding links for ", url, " : ", exc.identifier);
                 obj.LinkCount = obj.LinkCount + 1;
@@ -63,13 +67,14 @@ classdef WebCrawler < handle
             G = subgraph(G, bins{idx});                                     % subgraph largest comp
             figure                                                          % new figure
             colormap cool                                                   % use cool colormap
-            msize = 2.5*(outdegree(G) + 3)./max(outdegree(G));                % marker size
+            msize = 2.5*(outdegree(G) + 3)./max(max(outdegree(G),1));       % marker size
             ncol = outdegree(G) + 3;                                        % node colors
             named = outdegree(G) > 7;                                       % nodes to label
             h = plot(G, 'MarkerSize', msize, 'NodeCData', ncol);            % plot graph
             layout(h,'force3','Iterations',30)                              % change layout
             labelnode(h, find(named), G.Nodes.Name(named));                 % add node labels
-            title('Links Visited')                                          % add title
+            urlSplit = strsplit(obj.RootURL, '?');                          % remove queries
+            title(strcat("Links visited from <", urlSplit(1), ">"))         % add title
             axis tight off                                                  % set axis
             set(gca,'clipping','off')                                       % turn off clipping                
         end

@@ -8,13 +8,16 @@ classdef tWebCrawler < matlab.unittest.TestCase
         page = {"https://www.mathworks.com/help/matlab/", ...
                 "https://en.wikipedia.org/wiki/Stoicism"}
         maxLinks = {10,20}
+        filter = {@(s)startsWith(s, "https://www.mathworks.com/"), ...
+                  @(s)contains(s, "wikipedia")}
     end
 
     methods(Test)
 
-        function testExplore(test, page, maxLinks)
+        function testExplore(test, page, maxLinks, filter)
             crawler = test.objUnderTest();
             crawler.maxLinks = maxLinks;
+            crawler.filter = filter;
             crawler.explore(page);
             h = crawler.plotGraph();
             links = crawler.VisitedURLs;
