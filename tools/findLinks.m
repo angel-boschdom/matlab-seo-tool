@@ -8,13 +8,31 @@ function links = findLinks(url)
 
     % Use the webread function to read the content of the URL
     content = webread(url);
-    
-    % Use regular expressions to find all the links in the content
-    linkPattern = '<a\s+href=["''](http[s]?://[^"''\s>]+)["'']'; % Pattern to match http or https links
-    matches = regexp(content, linkPattern, 'tokens');
-    
-    % Extract the links from the matches
-    links = cellfun(@(x) x{1}, matches, 'UniformOutput', false);
-    links = string(links);
 
+    if isTextAnalyticsToolboxInstalled() % recommended, more robust method
+        % Parse the HTML code using htmlTree
+        tree = htmlTree(content);    
+        % Find all <a> tags
+        aTags = findElement(tree, "a");  
+        % Extract the href attribute of each link
+        hrefs = getAttribute(aTags, 'href');
+        % Keep only http links
+        links = hrefs(startsWith(hrefs, "http"));
+    else
+        % Use regular expressions to find all the links in the content
+        linkPattern = '<a\s+href=["''](http[s]?://[^"''\s>]+)["'']'; % Pattern to match http or https links
+        matches = regexp(content, linkPattern, 'tokens');       
+        % Extract the links from the matches
+        links = cellfun(@(x) x{1}, matches, 'UniformOutput', false);
+        links = string(links);
+    end
+
+end
+
+function isInstalled = isTextAnalyticsToolboxInstalled()
+    % Get information about installed toolboxes
+    toolboxInfo = ver;
+    
+    % Check if Text Analytics Toolbox is installed
+    isInstalled = any(strcmp({toolboxInfo.Name}, 'Text Analytics Toolbox'));
 end
