@@ -16,8 +16,13 @@ function links = findLinks(url)
         aTags = findElement(tree, "a");  
         % Extract the href attribute of each link
         hrefs = getAttribute(aTags, 'href');
-        % Keep only http links
-        links = hrefs(startsWith(hrefs, "http"));
+        % Remove missing
+        hrefs(ismissing(hrefs))=[];
+        % Remove anchor tags / internal links
+        hrefs(startsWith(hrefs,"#")) = [];
+        % for relative-path hrefs, add the parent URL
+        hrefs(startsWith(hrefs,"/")) = strcat(url, hrefs(startsWith(hrefs,"/")));
+        links = hrefs;
     else
         % Use regular expressions to find all the links in the content
         linkPattern = '<a\s+href=["''](http[s]?://[^"''\s>]+)["'']'; % Pattern to match http or https links
