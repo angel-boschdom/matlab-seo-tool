@@ -12,6 +12,11 @@ function [words, count] = findKeywords(url,options)
     switch options.method
         case "bagOfWords"
             [words, count] = findKeywordsWithBagOfWordsMethod(url, options.maxKeywords);
+        case "textrankKeywords"
+            [words, count] = findKeywordsWithTextRankMethod(url, options.maxKeywords);
+        case "ChatGPT"
+            words = findKeywordsWithChatGPT(url, options.maxKeywords);
+            count = [];
         otherwise
             errID = "findKeywords:invalidMethod";
             msg = strcat(options.method, " is not a valid option. Specify a supported method.");
@@ -30,6 +35,32 @@ function [words, count] = findKeywordsWithBagOfWordsMethod(url, numWords)
     tbl = topkwords(bag, numWords);
     words = tbl.Word;
     count = tbl.Count;
+end
+
+function [words, score] = findKeywordsWithTextRankMethod(url, numWords)
+    html = webread(url);
+    html = lower(html); % lowercase, for case-insensitive matching
+    content = strip(extractHTMLText(html));
+    document = tokenizedDocument(content);
+    tbl = textrankKeywords(document, "MaxNumKeywords",numWords);
+    words = tbl.Keywords;
+    score = tbl.Score;
+end
+
+function words = findKeywordsWithChatGPT(url, numKeywords)
+    scorer = chatGPT();
+    scorer.temperature = 0;    
+    scorer.role = strcat('You are a search engine optimization (SEO) specialist and keyword identifier. I send you a text, and your output is a list of keywords.');
+    prompt = strcat('My next prompt is the text content of a webpage. Your output is a list of the ', num2str(numKeywords), ' top keywords in the page. ', ...
+                    'The keywords must be the best for SEO. Only show ', num2str(numKeywords), ' keywords exactly. Do not comment your response, start directly with the list.');
+    html = webread(url);
+    str = extractHTMLText(html);
+    numWords = numel(strsplit(strcat(str,prompt)));
+    scorer.max_tokens = numWords + numKeywords + 10;
+    scorer.chat(prompt); % required for setting up the scorer bot
+    answer = scorer.chat(str); % actual answer
+    words = interpretChatGPTAnswer(answer);
+
 end
 
 function words = splitExcludingIrrelevantTokens(str)
@@ -62,4 +93,13 @@ function words = splitExcludingIrrelevantTokens(str)
         words = strip(words, thisChar); 
     end
     words(strlength(words)<2) = []; % remove one-character words
+end
+
+function words = interpretChatGPTAnswer(answer)
+
+    % Split the string into individual words
+    words = regexp(answer, '\n', 'split');
+    
+    % Remove the "1. ", "2. ", etc. 
+    words = extractAfter(words, " ");
 end

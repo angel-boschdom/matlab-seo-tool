@@ -20,9 +20,14 @@ function links = findLinks(url)
         hrefs(ismissing(hrefs))=[];
         % Remove anchor tags / internal links
         hrefs(startsWith(hrefs,"#")) = [];
-        % for relative-path hrefs, add the parent URL
-        hrefs(startsWith(hrefs,"/")) = strcat(url, hrefs(startsWith(hrefs,"/")));
-        links = hrefs;
+        % double-slashes indicate a protocol-relative URL. Assume https
+        hrefs(startsWith(hrefs,"//")) = strcat("https:", hrefs(startsWith(hrefs,"//")));
+        % single-slash indicates relative path to the root site. Add root URL
+        hrefs(startsWith(hrefs,"/")) = addRootSite(hrefs(startsWith(hrefs,"/")), url);
+        % no slash indicates relative path
+        hrefs(~startsWith(hrefs, "http")) = strcat(url,hrefs(~startsWith(hrefs, "http")));
+        % don't keep the queries
+        links = removeQueries(hrefs);
     else
         % Use regular expressions to find all the links in the content
         linkPattern = '<a\s+href=["''](http[s]?://[^"''\s>]+)["'']'; % Pattern to match http or https links
@@ -40,4 +45,19 @@ function isInstalled = isTextAnalyticsToolboxInstalled()
     
     % Check if Text Analytics Toolbox is installed
     isInstalled = any(strcmp({toolboxInfo.Name}, 'Text Analytics Toolbox'));
+end
+
+function newHref = addRootSite(href, url)
+    if ~endsWith(url, '/')
+        url = strcat(url,'/');
+    end
+    newHref = strcat("https://", extractBetween(url, "//", "/"), href);
+end
+
+function hrefs = removeQueries(hrefs)
+    for idx = 1:numel(hrefs)
+        if contains(hrefs(idx), '?')
+           hrefs(idx) = extractBefore(hrefs(idx),'?');
+        end
+    end
 end
